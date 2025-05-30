@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/episode_card.dart';
+import '../widgets/personnage_card.dart';
 
 class Personnages extends StatelessWidget {
   const Personnages({super.key});
@@ -37,7 +37,7 @@ class Personnages extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: personnages
-              .map((nom) => EpisodeCard(titre: nom))
+              .map((nom) => PersonnageCard(nom: nom))
               .toList(),
         ),
       ),

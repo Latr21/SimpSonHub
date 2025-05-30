@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
-class EpisodeCard extends StatelessWidget {
+class SaisonTile extends StatelessWidget {
   final String titre;
-  final VoidCallback? onTap;
+  final String route;
 
-  const EpisodeCard({super.key, required this.titre, this.onTap});
+  const SaisonTile({
+    super.key,
+    required this.titre,
+    required this.route,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => Navigator.pushNamed(context, route),
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
         width: double.infinity,
@@ -19,8 +23,8 @@ class EpisodeCard extends StatelessWidget {
           child: Text(
             titre,
             style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
           ),

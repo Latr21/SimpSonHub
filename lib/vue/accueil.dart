@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/saison_tile.dart';
 
 class Accueil extends StatelessWidget {
   const Accueil({super.key});
@@ -43,15 +44,11 @@ class Accueil extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Accueil'),
-              onTap: () {
-                Navigator.pushNamed(context, '/');
-              },
+              onTap: () => Navigator.pushNamed(context, '/'),
             ),
             ListTile(
               title: const Text('Personnages'),
-              onTap: () {
-                Navigator.pushNamed(context, '/personnages');
-              },
+              onTap: () => Navigator.pushNamed(context, '/personnages'),
             ),
           ],
         ),
@@ -61,31 +58,10 @@ class Accueil extends StatelessWidget {
         color: const Color.fromARGB(255, 245, 245, 245),
         child: Column(
           children: saisons
-              .map(
-                (saison) => Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, saison['route']!);
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      color: Colors.yellow,
-                      child: Center(
-                        child: Text(
-                          saison['titre']!,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              )
+              .map((saison) => SaisonTile(
+                    titre: saison['titre']!,
+                    route: saison['route']!,
+                  ))
               .toList(),
         ),
       ),
