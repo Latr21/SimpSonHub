@@ -18,7 +18,8 @@ class SimpSonHubApp extends StatelessWidget {
         primarySwatch: Colors.yellow,
       ),
       initialRoute: '/',
-      routes: appRoutes, // <- c’est ça qui relie les routes
+      routes: appRoutes,
+      onGenerateRoute: onGenerateRoute,  
     );
   }
 }

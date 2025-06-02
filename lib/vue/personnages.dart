@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
+import '../models/personnage.dart';
+import '../services/api_service.dart';
 import '../widgets/personnage_card.dart';
+import 'detail_personnage.dart';  
 
 class Personnages extends StatelessWidget {
   const Personnages({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<String> personnages = [
-      'Homer Simpson',
-      'Marge Simpson',
-      'Bart Simpson',
-      'Lisa Simpson',
-      'Maggie Simpson',
-      'Ned Flanders',
-      'Mr. Burns',
-      'Krusty le clown',
-    ];
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow,
@@ -32,14 +24,39 @@ class Personnages extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        color: const Color.fromARGB(255, 245, 245, 245),
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: personnages
-              .map((nom) => PersonnageCard(nom: nom))
-              .toList(),
-        ),
+      body: FutureBuilder<List<Personnage>>(
+        future: ApiService.getPersonnages(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Erreur : ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('Aucun personnage trouvé.'));
+          }
+          final personnages = snapshot.data!;
+          return Container(
+            color: const Color.fromARGB(255, 245, 245, 245),
+            padding: const EdgeInsets.all(20),
+            child: ListView(
+              children: personnages
+                  .map(
+                    (p) => PersonnageCard(
+                      personnage: p,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailPersonnage(personnage: p),
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                  .toList(),
+            ),
+          );
+        },
       ),
     );
   }

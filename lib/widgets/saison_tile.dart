@@ -12,20 +12,23 @@ class SaisonTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, route),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        color: Colors.yellow,
-        child: Center(
-          child: Text(
-            titre,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+    return Card(
+      margin: const EdgeInsets.only(bottom: 10),
+      child: InkWell(
+        onTap: () => Navigator.pushNamed(context, route),
+        splashColor: Colors.yellow.shade200,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          color: Colors.yellow,
+          child: Center(
+            child: Text(
+              titre,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
         ),
